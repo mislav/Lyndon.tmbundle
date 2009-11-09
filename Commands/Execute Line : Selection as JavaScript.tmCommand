@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env macruby
+require 'lyndon'
+js = Lyndon::Runtime.new
+js.eval 'window.console.log = function(msg) { Ruby.puts(msg) }'
+
+selection = ENV['TM_SELECTED_TEXT']
+
+begin
+  print(selection ? " " : "\n")
+  out = js.eval(STDIN.read)
+rescue Object
+  out = $!.class.to_s
+end
+
+unless WebUndefined === out
+  print out
+  puts unless selection
+end</string>
+	<key>fallbackInput</key>
+	<string>line</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^E</string>
+	<key>name</key>
+	<string>Execute Line / Selection as JavaScript</string>
+	<key>output</key>
+	<string>afterSelectedText</string>
+	<key>scope</key>
+	<string>source.js</string>
+	<key>uuid</key>
+	<string>BD558331-52F5-4449-A62F-A772C1F6E12F</string>
+</dict>
+</plist>

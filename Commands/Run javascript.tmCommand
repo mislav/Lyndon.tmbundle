@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env macruby
+require 'lyndon'
+js = Lyndon::Runtime.new
+js.eval 'window.console.log = function(msg) { Ruby.puts(msg) }'
+
+out = js.eval(STDIN.read)
+
+require 'cgi'
+print "&lt;pre&gt;&lt;code&gt;"
+puts CGI.escapeHTML(out.inspect)
+puts "&lt;/code&gt;&lt;/pre&gt;"</string>
+	<key>input</key>
+	<string>document</string>
+	<key>keyEquivalent</key>
+	<string>@r</string>
+	<key>name</key>
+	<string>Run JavaScript</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>scope</key>
+	<string>source.js</string>
+	<key>uuid</key>
+	<string>270B531B-34CB-4953-A2C4-1118551002D1</string>
+</dict>
+</plist>
